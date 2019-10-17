@@ -1,0 +1,4 @@
+{
+    "DERIVATIVE_URL": "wss://www.hbdm.com/ws",
+    "PUBLIC_CENTER_BASE_URL": "ws://localhost:12001"
+}

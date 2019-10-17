@@ -1,0 +1,35 @@
+{
+    "name": "public-agent-huobi-websocket",
+    "version": "0.0.1",
+    "description": "",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "tsc -b"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/zimtsui/public-agent-huobi-websocket.git"
+    },
+    "author": "Zim",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/zimtsui/public-agent-huobi-websocket/issues"
+    },
+    "homepage": "https://github.com/zimtsui/public-agent-huobi-websocket#readme",
+    "devDependencies": {
+        "@types/node": "^12.11.1",
+        "typescript": "^3.6.4"
+    },
+    "dependencies": {
+        "@types/fs-extra": "^8.0.1",
+        "@types/ws": "^6.0.3",
+        "autobind-decorator": "^2.4.0",
+        "autonomous": "git+https://github.com/zimtsui/autonomous.git",
+        "fs-extra": "^8.1.0",
+        "interfaces": "git+https://github.com/zimtsui/interfaces.git",
+        "json-bigint": "^0.3.0",
+        "ws": "^7.1.2"
+    }
+}
