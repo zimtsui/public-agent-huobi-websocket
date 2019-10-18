@@ -15,6 +15,7 @@ const events_1 = require("events");
 const autobind_decorator_1 = require("autobind-decorator");
 const fs_extra_1 = require("fs-extra");
 const path_1 = require("path");
+const zlib_1 = require("zlib");
 // @ts-ignore
 const json_bigint_1 = __importDefault(require("json-bigint"));
 const formatter_1 = require("./formatter");
@@ -34,14 +35,17 @@ class PublicAgentHuobiWebsocket extends autonomous_1.default {
         this.huobiDerivative.on('data', this.onDerivativeRawData);
     }
     async _stop() {
-        if (this.huobiDerivative && (this.huobiDerivative.readyState == 0
-            || this.huobiDerivative.readyState == 1))
-            this.huobiDerivative.close(ACTIVE_CLOSE);
+        if (this.huobiDerivative) {
+            if (this.huobiDerivative.readyState < 2)
+                this.huobiDerivative.close(ACTIVE_CLOSE);
+            if (this.huobiDerivative.readyState < 3)
+                await events_1.once(this.huobiDerivative, 'close');
+        }
         for (const center of Object.values(this.publicCenterDerivative)) {
-            if (center.readyState == 0 || center.readyState == 1) {
+            if (center.readyState < 2)
                 center.close(ACTIVE_CLOSE);
+            if (center.readyState < 3)
                 await events_1.once(center, 'close');
-            }
         }
     }
     async connectHuobiDerivative() {
@@ -54,7 +58,7 @@ class PublicAgentHuobiWebsocket extends autonomous_1.default {
             }
         });
         this.huobiDerivative.on('message', (message) => {
-            this.huobiDerivative.emit('data', json_bigint_1.default.parse(message));
+            this.huobiDerivative.emit('data', json_bigint_1.default.parse(zlib_1.gunzipSync(message)));
         });
         await events_1.once(this.huobiDerivative, 'open');
     }
@@ -65,7 +69,7 @@ class PublicAgentHuobiWebsocket extends autonomous_1.default {
                 id: `${pair} trades`,
             }));
             const onSub = (data) => {
-                if (data.id !== `${pair} trades`)
+                if (data.subbed !== mapping_1.DERIVATIVE_MARKETS[pair].tradesChannel)
                     return;
                 if (data.status === 'ok') {
                     this.huobiDerivative.emit(`${pair} trades subscribed`);
@@ -87,7 +91,7 @@ class PublicAgentHuobiWebsocket extends autonomous_1.default {
                 id: `${pair} orderbook`,
             }));
             const onSub = (data) => {
-                if (data.id !== `${pair} orderbook`)
+                if (data.subbed !== mapping_1.DERIVATIVE_MARKETS[pair].orderbookChannel)
                     return;
                 if (data.status === 'ok') {
                     this.huobiDerivative.emit(`${pair} orderbook subscribed`);
