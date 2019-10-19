@@ -21,7 +21,8 @@ module.exports = (pandora) => {
         .service(
             'public-agent-huobi-websocket',
             autoExitDecorator(3000)(PublicAgentHuobiWebsocket),
-        ).process('process1');
+        ).dependency(['kita'])
+        .process('process1');
 
     /**
      * you can also use cluster mode to start application
