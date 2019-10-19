@@ -149,7 +149,7 @@ class PublicAgentHuobiWebsocket extends autonomous_1.default {
             center.on('error', console.error);
             center.on('close', code => {
                 if (code !== ACTIVE_CLOSE) {
-                    console.error(`public center for ${pair} closed`);
+                    console.error(`public center for ${pair} closed: ${code}`);
                     this.stop();
                 }
             });
