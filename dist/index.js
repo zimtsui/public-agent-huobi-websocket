@@ -11,6 +11,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const autonomous_1 = __importDefault(require("autonomous"));
 const ws_1 = __importDefault(require("ws"));
+const lodash_1 = require("lodash");
 const events_1 = require("events");
 const autobind_decorator_1 = require("autobind-decorator");
 const fs_extra_1 = require("fs-extra");
@@ -20,19 +21,22 @@ const zlib_1 = require("zlib");
 const json_bigint_1 = __importDefault(require("json-bigint"));
 const formatter_1 = require("./formatter");
 const mapping_1 = require("./mapping");
+const jsonBigintString = json_bigint_1.default({ storeAsString: true });
 const config = fs_extra_1.readJsonSync(path_1.join(__dirname, '../cfg/config.json'));
 const ACTIVE_CLOSE = 4000;
 class PublicAgentHuobiWebsocket extends autonomous_1.default {
     constructor() {
         super(...arguments);
-        this.publicCenterDerivative = {};
+        this.publicCenter = {};
     }
     async _start() {
         await this.connectHuobiDerivative();
-        await this.subscribeDerivativeTrades();
-        await this.subscribeDerivativeOrderbook();
-        await this.connectPublicCenterDerivative();
+        await this.connectHuobiSpot();
+        await this.subscribeTrades();
+        await this.subscribeOrderbook();
+        await this.connectPublicCenter();
         this.huobiDerivative.on('data', this.onDerivativeRawData);
+        this.huobiSpot.on('data', this.onSpotRawData);
     }
     async _stop() {
         if (this.huobiDerivative) {
@@ -41,7 +45,13 @@ class PublicAgentHuobiWebsocket extends autonomous_1.default {
             if (this.huobiDerivative.readyState < 3)
                 await events_1.once(this.huobiDerivative, 'close');
         }
-        for (const center of Object.values(this.publicCenterDerivative)) {
+        if (this.huobiSpot) {
+            if (this.huobiSpot.readyState < 2)
+                this.huobiSpot.close(ACTIVE_CLOSE);
+            if (this.huobiSpot.readyState < 3)
+                await events_1.once(this.huobiSpot, 'close');
+        }
+        for (const center of Object.values(this.publicCenter)) {
             if (center.readyState < 2)
                 center.close(ACTIVE_CLOSE);
             if (center.readyState < 3)
@@ -58,57 +68,83 @@ class PublicAgentHuobiWebsocket extends autonomous_1.default {
             }
         });
         this.huobiDerivative.on('message', (message) => {
-            this.huobiDerivative.emit('data', json_bigint_1.default.parse(zlib_1.gunzipSync(message)));
+            this.huobiDerivative.emit('data', jsonBigintString.parse(zlib_1.gunzipSync(message)));
         });
         await events_1.once(this.huobiDerivative, 'open');
+        this.derivativeDebouncedStop = lodash_1.debounce(() => {
+            console.error(new Error('huobi derivative lost ping'));
+            this.stop();
+        }, config.DERIVATIVE_PING_INTERVAL * 2);
     }
-    async subscribeDerivativeTrades() {
-        for (const pair in mapping_1.DERIVATIVE_MARKETS) {
-            this.huobiDerivative.send(JSON.stringify({
-                sub: mapping_1.DERIVATIVE_MARKETS[pair].tradesChannel,
+    async connectHuobiSpot() {
+        this.huobiSpot = new ws_1.default(config.SPOT_URL);
+        this.huobiSpot.on('error', console.error);
+        this.huobiSpot.on('close', code => {
+            if (code !== ACTIVE_CLOSE) {
+                console.error(new Error('huobi spot closed'));
+                this.stop();
+            }
+        });
+        this.huobiSpot.on('message', (message) => {
+            this.huobiSpot.emit('data', JSON.parse(zlib_1.gunzipSync(message).toString('ascii')));
+        });
+        await events_1.once(this.huobiSpot, 'open');
+        this.spotDebouncedStop = lodash_1.debounce(() => {
+            console.error(new Error('huobi spot lost ping'));
+            this.stop();
+        }, config.SPOT_PING_INTERVAL * 2);
+    }
+    async subscribeTrades() {
+        for (const pair in mapping_1.MARKETS) {
+            const huobi = mapping_1.MARKETS[pair].server === 'spot'
+                ? this.huobiSpot : this.huobiDerivative;
+            huobi.send(JSON.stringify({
+                sub: mapping_1.MARKETS[pair].tradesChannel,
                 id: `${pair} trades`,
             }));
             const onSub = (data) => {
-                if (data.subbed !== mapping_1.DERIVATIVE_MARKETS[pair].tradesChannel)
+                if (data.subbed !== mapping_1.MARKETS[pair].tradesChannel)
                     return;
                 if (data.status === 'ok') {
-                    this.huobiDerivative.emit(`${pair} trades subscribed`);
+                    huobi.emit(`${pair} trades subscribed`);
                 }
                 else {
                     console.error(new Error(`failed to subscribe ${pair} trades`));
                     this.stop();
                 }
             };
-            this.huobiDerivative.on('data', onSub);
-            await events_1.once(this.huobiDerivative, `${pair} trades subscribed`);
-            this.huobiDerivative.off('data', onSub);
+            huobi.on('data', onSub);
+            await events_1.once(huobi, `${pair} trades subscribed`);
+            huobi.off('data', onSub);
         }
     }
-    async subscribeDerivativeOrderbook() {
-        for (const pair in mapping_1.DERIVATIVE_MARKETS) {
-            this.huobiDerivative.send(JSON.stringify({
-                sub: mapping_1.DERIVATIVE_MARKETS[pair].orderbookChannel,
+    async subscribeOrderbook() {
+        for (const pair in mapping_1.MARKETS) {
+            const huobi = mapping_1.MARKETS[pair].server === 'spot'
+                ? this.huobiSpot : this.huobiDerivative;
+            huobi.send(JSON.stringify({
+                sub: mapping_1.MARKETS[pair].orderbookChannel,
                 id: `${pair} orderbook`,
             }));
             const onSub = (data) => {
-                if (data.subbed !== mapping_1.DERIVATIVE_MARKETS[pair].orderbookChannel)
+                if (data.subbed !== mapping_1.MARKETS[pair].orderbookChannel)
                     return;
                 if (data.status === 'ok') {
-                    this.huobiDerivative.emit(`${pair} orderbook subscribed`);
+                    huobi.emit(`${pair} orderbook subscribed`);
                 }
                 else {
                     console.error(new Error(`failed to subscribe ${pair} orderbook`));
                     this.stop();
                 }
             };
-            this.huobiDerivative.on('data', onSub);
-            await events_1.once(this.huobiDerivative, `${pair} orderbook subscribed`);
-            this.huobiDerivative.off('data', onSub);
+            huobi.on('data', onSub);
+            await events_1.once(huobi, `${pair} orderbook subscribed`);
+            huobi.off('data', onSub);
         }
     }
-    async connectPublicCenterDerivative() {
-        for (const pair in mapping_1.DERIVATIVE_MARKETS) {
-            const center = this.publicCenterDerivative[pair]
+    async connectPublicCenter() {
+        for (const pair in mapping_1.MARKETS) {
+            const center = this.publicCenter[pair]
                 = new ws_1.default(`${config.PUBLIC_CENTER_BASE_URL}/huobi/${pair}`);
             center.on('error', console.error);
             center.on('close', code => {
@@ -128,9 +164,9 @@ class PublicAgentHuobiWebsocket extends autonomous_1.default {
             }
             const { pair, type } = this.channelMap(data.ch);
             if (type === 'trades')
-                this.onDerivativeRawTradesData(pair, data.tick.data);
+                this.onRawTradesData(pair, data.tick.data);
             if (type === 'orderbook')
-                this.onDerivativeRawOrderbookData(pair, data.tick);
+                this.onRawOrderbookData(pair, data.tick);
         }
         catch (err) {
             console.error(err);
@@ -138,29 +174,56 @@ class PublicAgentHuobiWebsocket extends autonomous_1.default {
         }
         ;
     }
-    onDerivativeRawTradesData(pair, raw) {
-        const trades = formatter_1.formatDerivativeRawTradesData(raw);
-        const data = { trades };
-        this.publicCenterDerivative[pair].send(JSON.stringify(data));
+    onSpotRawData(data) {
+        try {
+            if (data.ping) {
+                this.onSpotPing(data);
+                return;
+            }
+            const { pair, type } = this.channelMap(data.ch);
+            if (type === 'trades')
+                this.onRawTradesData(pair, data.tick.data);
+            if (type === 'orderbook')
+                this.onRawOrderbookData(pair, data.tick);
+        }
+        catch (err) {
+            console.error(err);
+            this.stop();
+        }
+        ;
     }
-    onDerivativeRawOrderbookData(pair, raw) {
-        const orderbook = formatter_1.formatDerivativeRawOrderbookData(raw);
+    onRawTradesData(pair, raw) {
+        const isFutures = pair !== 'BTC/USDT';
+        const trades = formatter_1.formatRawTradesData(raw, isFutures);
+        const data = { trades };
+        this.publicCenter[pair].send(JSON.stringify(data));
+    }
+    onRawOrderbookData(pair, raw) {
+        const isFutures = pair !== 'BTC/USDT';
+        const orderbook = formatter_1.formatRawOrderbookData(raw, isFutures);
         const data = { orderbook };
-        this.publicCenterDerivative[pair].send(JSON.stringify(data));
+        this.publicCenter[pair].send(JSON.stringify(data));
     }
     onDerivativePing(raw) {
         this.huobiDerivative.send(JSON.stringify({
             pong: raw.ping,
         }));
+        this.derivativeDebouncedStop();
+    }
+    onSpotPing(raw) {
+        this.huobiSpot.send(JSON.stringify({
+            pong: raw.ping,
+        }));
+        this.spotDebouncedStop();
     }
     channelMap(channel) {
-        for (const pair in mapping_1.DERIVATIVE_MARKETS) {
-            if (channel === mapping_1.DERIVATIVE_MARKETS[pair].tradesChannel)
+        for (const pair in mapping_1.MARKETS) {
+            if (channel === mapping_1.MARKETS[pair].tradesChannel)
                 return {
                     pair,
                     type: 'trades',
                 };
-            if (channel === mapping_1.DERIVATIVE_MARKETS[pair].orderbookChannel)
+            if (channel === mapping_1.MARKETS[pair].orderbookChannel)
                 return {
                     pair,
                     type: 'orderbook',
@@ -172,6 +235,9 @@ class PublicAgentHuobiWebsocket extends autonomous_1.default {
 __decorate([
     autobind_decorator_1.boundMethod
 ], PublicAgentHuobiWebsocket.prototype, "onDerivativeRawData", null);
+__decorate([
+    autobind_decorator_1.boundMethod
+], PublicAgentHuobiWebsocket.prototype, "onSpotRawData", null);
 exports.PublicAgentHuobiWebsocket = PublicAgentHuobiWebsocket;
 exports.default = PublicAgentHuobiWebsocket;
 //# sourceMappingURL=index.js.map

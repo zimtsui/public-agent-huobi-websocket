@@ -1,3 +1,3 @@
-import { DerivativeMarkets } from './interfaces';
-declare const DERIVATIVE_MARKETS: DerivativeMarkets;
-export { DERIVATIVE_MARKETS, };
+import { MarketsDescriptor } from './interfaces';
+declare const MARKETS: MarketsDescriptor;
+export { MARKETS, };

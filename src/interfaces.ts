@@ -1,35 +1,40 @@
 export * from 'interfaces';
 
-interface DerivativeRawTrade {
-    amount: number;
+interface RawTrade {
+    amount: number | string;
     ts: number;
-    id: bigint;
-    price: number;
+    tradeId?: number;
+    id: string | number;
+    price: number | string;
     direction: string;
 }
 
-type DerivativeRawTradesData = DerivativeRawTrade[];
+type RawTradesData = RawTrade[];
 
-interface DerivativeRawOrderbookData {
+interface RawOrderbookData {
     bids: [number, number][],
     asks: [number, number][],
 }
 
 interface Config {
     DERIVATIVE_URL: string;
+    SPOT_URL: string;
     PUBLIC_CENTER_BASE_URL: string;
+    DERIVATIVE_PING_INTERVAL: number;
+    SPOT_PING_INTERVAL: number;
 }
 
-interface DerivativeMarkets {
+interface MarketsDescriptor {
     [pair: string]: {
+        server: 'spot' | 'derivative';
         tradesChannel: string;
         orderbookChannel: string;
     };
 };
 
 export {
-    DerivativeRawOrderbookData,
-    DerivativeRawTradesData,
+    RawOrderbookData,
+    RawTradesData,
     Config,
-    DerivativeMarkets,
+    MarketsDescriptor,
 };

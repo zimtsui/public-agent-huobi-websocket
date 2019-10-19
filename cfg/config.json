@@ -1,4 +1,7 @@
 {
     "DERIVATIVE_URL": "wss://www.hbdm.com/ws",
+    "DERIVATIVE_PING_INTERVAL": 5000,
+    "SPOT_URL": "wss://api.huobiasia.vip/ws",
+    "SPOT_PING_INTERVAL": 5000,
     "PUBLIC_CENTER_BASE_URL": "ws://localhost:12001"
 }
