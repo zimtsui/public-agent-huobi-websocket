@@ -12,6 +12,9 @@ function formatDerivativeRawTradesData(raw) {
 }
 exports.formatDerivativeRawTradesData = formatDerivativeRawTradesData;
 function formatDerivativeRawOrderbookData(raw) {
+    // api bug during settlement
+    raw.bids = raw.bids || [];
+    raw.asks = raw.asks || [];
     return {
         bids: raw.bids.map(([price, amount]) => ({
             price,

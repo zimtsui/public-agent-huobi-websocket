@@ -142,7 +142,7 @@
         "signature": "b984f4894b6616e0bef88b2235eb7504db1bf84b52fe43c728abdce193266863"
       },
       "./src/formatter.ts": {
-        "version": "d01f5f92a2ddc94254900f6c7024b39865f98ee387531ffa917eba8dc494d074",
+        "version": "7f3d4263cf3aa7cebd8f720faf8e2400c461facc30392bc46f7c0ecf7853cf85",
         "signature": "42f6ff94c953e01de9200171e8b7b1dfead9f9e2465db48b9417cea48d305541"
       },
       "./node_modules/autonomous/dist/auto-exit-decorator.d.ts": {
@@ -1677,7 +1677,6 @@
       "./node_modules/typescript/lib/lib.esnext.bigint.d.ts",
       "./node_modules/interfaces/dist/index.d.ts",
       "./src/interfaces.ts",
-      "./src/formatter.ts",
       "./node_modules/autonomous/dist/auto-exit-decorator.d.ts",
       "./node_modules/autonomous/dist/index.d.ts",
       "./node_modules/@types/node/globals.d.ts",
@@ -1729,8 +1728,9 @@
       "./node_modules/autobind-decorator/index.d.ts",
       "./node_modules/@types/fs-extra/index.d.ts",
       "./src/mapping.ts",
+      "./src/index.ts",
       "./node_modules/@types/bluebird/index.d.ts",
-      "./src/index.ts"
+      "./src/formatter.ts"
     ]
   },
   "version": "3.6.4"

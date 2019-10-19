@@ -21,6 +21,10 @@ function formatDerivativeRawTradesData(
 function formatDerivativeRawOrderbookData(
     raw: DerivativeRawOrderbookData
 ): Orderbook {
+    // api bug during settlement
+    raw.bids = raw.bids || [];
+    raw.asks = raw.asks || [];
+
     return {
         bids: raw.bids.map(([price, amount]) => ({
             price,
