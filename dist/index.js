@@ -39,17 +39,17 @@ class PublicAgentHuobiWebsocket extends autonomous_1.default {
         this.huobiSpot.on('data', this.onSpotRawData);
     }
     async _stop() {
-        if (this.huobiDerivative) {
-            if (this.huobiDerivative.readyState < 2)
-                this.huobiDerivative.close(ACTIVE_CLOSE);
-            if (this.huobiDerivative.readyState < 3)
-                await events_1.once(this.huobiDerivative, 'close');
-        }
         if (this.huobiSpot) {
             if (this.huobiSpot.readyState < 2)
                 this.huobiSpot.close(ACTIVE_CLOSE);
             if (this.huobiSpot.readyState < 3)
                 await events_1.once(this.huobiSpot, 'close');
+        }
+        if (this.huobiDerivative) {
+            if (this.huobiDerivative.readyState < 2)
+                this.huobiDerivative.close(ACTIVE_CLOSE);
+            if (this.huobiDerivative.readyState < 3)
+                await events_1.once(this.huobiDerivative, 'close');
         }
         for (const center of Object.values(this.publicCenter)) {
             if (center.readyState < 2)
@@ -63,7 +63,7 @@ class PublicAgentHuobiWebsocket extends autonomous_1.default {
         this.huobiDerivative.on('error', console.error);
         this.huobiDerivative.on('close', code => {
             if (code !== ACTIVE_CLOSE) {
-                console.error(new Error('huobi derivative closed'));
+                console.error(new Error(`huobi derivative closed: ${code}`));
                 this.stop();
             }
         });
@@ -81,7 +81,7 @@ class PublicAgentHuobiWebsocket extends autonomous_1.default {
         this.huobiSpot.on('error', console.error);
         this.huobiSpot.on('close', code => {
             if (code !== ACTIVE_CLOSE) {
-                console.error(new Error('huobi spot closed'));
+                console.error(new Error(`huobi spot closed: ${code}`));
                 this.stop();
             }
         });
