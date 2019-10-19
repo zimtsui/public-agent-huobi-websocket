@@ -25,7 +25,7 @@ const jsonBigintString = jsonBigint({ storeAsString: true });
 
 const config: Config = readJsonSync(join(__dirname, '../cfg/config.json'));
 
-const ACTIVE_CLOSE = 4000;
+const ACTIVE_CLOSE = 'public-agent-huobi-websocket';
 
 class PublicAgentHuobiWebsocket extends Autonomous {
     private huobiDerivative!: WebSocket;
@@ -51,18 +51,18 @@ class PublicAgentHuobiWebsocket extends Autonomous {
     protected async _stop(): Promise<void> {
         if (this.huobiSpot) {
             if (this.huobiSpot.readyState < 2)
-                this.huobiSpot.close(ACTIVE_CLOSE);
+                this.huobiSpot.close(1000, ACTIVE_CLOSE);
             if (this.huobiSpot.readyState < 3)
                 await once(this.huobiSpot, 'close');
         }
         if (this.huobiDerivative) {
             if (this.huobiDerivative.readyState < 2)
-                this.huobiDerivative.close(ACTIVE_CLOSE);
+                this.huobiDerivative.close(1000, ACTIVE_CLOSE);
             if (this.huobiDerivative.readyState < 3)
                 await once(this.huobiDerivative, 'close');
         }
         for (const center of Object.values(this.publicCenter)) {
-            if (center.readyState < 2) center.close(ACTIVE_CLOSE);
+            if (center.readyState < 2) center.close(1000, ACTIVE_CLOSE);
             if (center.readyState < 3) await once(center, 'close');
         }
     }
@@ -71,8 +71,8 @@ class PublicAgentHuobiWebsocket extends Autonomous {
         this.huobiDerivative = new WebSocket(config.DERIVATIVE_URL);
 
         this.huobiDerivative.on('error', console.error);
-        this.huobiDerivative.on('close', code => {
-            if (code !== ACTIVE_CLOSE) {
+        this.huobiDerivative.on('close', (code, reason) => {
+            if (reason !== ACTIVE_CLOSE) {
                 console.error(new Error(`huobi derivative closed: ${code}`));
                 this.stop();
             }
@@ -94,8 +94,8 @@ class PublicAgentHuobiWebsocket extends Autonomous {
         this.huobiSpot = new WebSocket(config.SPOT_URL);
 
         this.huobiSpot.on('error', console.error);
-        this.huobiSpot.on('close', code => {
-            if (code !== ACTIVE_CLOSE) {
+        this.huobiSpot.on('close', (code, reason) => {
+            if (reason !== ACTIVE_CLOSE) {
                 console.error(new Error(`huobi spot closed: ${code}`));
                 this.stop();
             }
@@ -176,8 +176,8 @@ class PublicAgentHuobiWebsocket extends Autonomous {
                     `${config.PUBLIC_CENTER_BASE_URL}/huobi/${pair}`
                 );
             center.on('error', console.error);
-            center.on('close', code => {
-                if (code !== ACTIVE_CLOSE) {
+            center.on('close', (code, reason) => {
+                if (reason !== ACTIVE_CLOSE) {
                     console.error(`public center for ${pair} closed: ${code}`);
                     this.stop();
                 }

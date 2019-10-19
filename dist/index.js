@@ -23,7 +23,7 @@ const formatter_1 = require("./formatter");
 const mapping_1 = require("./mapping");
 const jsonBigintString = json_bigint_1.default({ storeAsString: true });
 const config = fs_extra_1.readJsonSync(path_1.join(__dirname, '../cfg/config.json'));
-const ACTIVE_CLOSE = 4000;
+const ACTIVE_CLOSE = 'public-agent-huobi-websocket';
 class PublicAgentHuobiWebsocket extends autonomous_1.default {
     constructor() {
         super(...arguments);
@@ -41,19 +41,19 @@ class PublicAgentHuobiWebsocket extends autonomous_1.default {
     async _stop() {
         if (this.huobiSpot) {
             if (this.huobiSpot.readyState < 2)
-                this.huobiSpot.close(ACTIVE_CLOSE);
+                this.huobiSpot.close(1000, ACTIVE_CLOSE);
             if (this.huobiSpot.readyState < 3)
                 await events_1.once(this.huobiSpot, 'close');
         }
         if (this.huobiDerivative) {
             if (this.huobiDerivative.readyState < 2)
-                this.huobiDerivative.close(ACTIVE_CLOSE);
+                this.huobiDerivative.close(1000, ACTIVE_CLOSE);
             if (this.huobiDerivative.readyState < 3)
                 await events_1.once(this.huobiDerivative, 'close');
         }
         for (const center of Object.values(this.publicCenter)) {
             if (center.readyState < 2)
-                center.close(ACTIVE_CLOSE);
+                center.close(1000, ACTIVE_CLOSE);
             if (center.readyState < 3)
                 await events_1.once(center, 'close');
         }
@@ -61,8 +61,8 @@ class PublicAgentHuobiWebsocket extends autonomous_1.default {
     async connectHuobiDerivative() {
         this.huobiDerivative = new ws_1.default(config.DERIVATIVE_URL);
         this.huobiDerivative.on('error', console.error);
-        this.huobiDerivative.on('close', code => {
-            if (code !== ACTIVE_CLOSE) {
+        this.huobiDerivative.on('close', (code, reason) => {
+            if (reason !== ACTIVE_CLOSE) {
                 console.error(new Error(`huobi derivative closed: ${code}`));
                 this.stop();
             }
@@ -79,8 +79,8 @@ class PublicAgentHuobiWebsocket extends autonomous_1.default {
     async connectHuobiSpot() {
         this.huobiSpot = new ws_1.default(config.SPOT_URL);
         this.huobiSpot.on('error', console.error);
-        this.huobiSpot.on('close', code => {
-            if (code !== ACTIVE_CLOSE) {
+        this.huobiSpot.on('close', (code, reason) => {
+            if (reason !== ACTIVE_CLOSE) {
                 console.error(new Error(`huobi spot closed: ${code}`));
                 this.stop();
             }
@@ -147,8 +147,8 @@ class PublicAgentHuobiWebsocket extends autonomous_1.default {
             const center = this.publicCenter[pair]
                 = new ws_1.default(`${config.PUBLIC_CENTER_BASE_URL}/huobi/${pair}`);
             center.on('error', console.error);
-            center.on('close', code => {
-                if (code !== ACTIVE_CLOSE) {
+            center.on('close', (code, reason) => {
+                if (reason !== ACTIVE_CLOSE) {
                     console.error(`public center for ${pair} closed: ${code}`);
                     this.stop();
                 }
