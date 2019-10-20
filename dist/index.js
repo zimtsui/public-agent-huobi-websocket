@@ -30,29 +30,28 @@ class PublicAgentHuobiWebsocket extends autonomous_1.Autonomous {
         this.publicCenter = {};
     }
     async _start() {
+        await this.connectPublicCenter();
         await this.connectHuobiDerivative();
+        this.huobiDerivative.on('data', this.onDerivativeRawData);
         await this.connectHuobiSpot();
+        this.huobiSpot.on('data', this.onSpotRawData);
         await this.subscribeTrades();
         await this.subscribeOrderbook();
-        await this.connectPublicCenter();
-        this.huobiDerivative.on('data', this.onDerivativeRawData);
-        this.huobiSpot.on('data', this.onSpotRawData);
     }
     async _stop() {
-        this.derivativeDebouncedStop.cancel();
-        this.spotDebouncedStop.cancel();
-        if (this.huobiSpot) {
-            if (this.huobiSpot.readyState < 2)
-                this.huobiSpot.close(1000, ACTIVE_CLOSE);
-            if (this.huobiSpot.readyState < 3)
-                await events_1.once(this.huobiSpot, 'close');
-        }
-        if (this.huobiDerivative) {
-            if (this.huobiDerivative.readyState < 2)
-                this.huobiDerivative.close(1000, ACTIVE_CLOSE);
-            if (this.huobiDerivative.readyState < 3)
-                await events_1.once(this.huobiDerivative, 'close');
-        }
+        /*
+            火币的服务器是直接 terminate，不仅不发 close frame，有时候
+            连 tcp 都不关，如果等 close 经常等不到，所以我也直接 terminate
+        */
+        // debouced 被 cancel 之后还能继续 invoke，所以先关网络。
+        if (this.huobiSpot)
+            this.huobiSpot.terminate();
+        if (this.spotDebouncedStop)
+            this.spotDebouncedStop.cancel();
+        if (this.huobiDerivative)
+            this.huobiDerivative.terminate();
+        if (this.derivativeDebouncedStop)
+            this.derivativeDebouncedStop.cancel();
         for (const center of Object.values(this.publicCenter)) {
             if (center.readyState < 2)
                 center.close(1000, ACTIVE_CLOSE);
@@ -164,6 +163,8 @@ class PublicAgentHuobiWebsocket extends autonomous_1.Autonomous {
                 this.onDerivativePing(data);
                 return;
             }
+            if (!data.ch)
+                return;
             const { pair, type } = this.channelMap(data.ch);
             if (type === 'trades')
                 this.onRawTradesData(pair, data.tick.data);
@@ -182,6 +183,8 @@ class PublicAgentHuobiWebsocket extends autonomous_1.Autonomous {
                 this.onSpotPing(data);
                 return;
             }
+            if (!data.ch)
+                return;
             const { pair, type } = this.channelMap(data.ch);
             if (type === 'trades')
                 this.onRawTradesData(pair, data.tick.data);

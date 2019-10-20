@@ -1,8 +1,8 @@
 import { pandora2Pm2 } from 'autonomous';
+import Index from './index';
 import { PandoraKita } from 'pandora-kita';
-import { PublicAgentHuobiWebsocket } from './index';
 
 pandora2Pm2([
     PandoraKita,
-    PublicAgentHuobiWebsocket,
+    Index,
 ]);

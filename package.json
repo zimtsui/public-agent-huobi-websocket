@@ -6,7 +6,9 @@
     "types": "./dist/index.d.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "tsc -b"
+        "build": "tsc -b",
+        "dev": "env NODE_ENV=development node -r source-map-support/register ./dist/main",
+        "start": "pm2 start ./ecosystem.config.js"
     },
     "repository": {
         "type": "git",
@@ -20,6 +22,7 @@
     "homepage": "https://github.com/zimtsui/public-agent-huobi-websocket#readme",
     "devDependencies": {
         "@types/node": "^12.11.1",
+        "source-map-support": "^0.5.13",
         "typescript": "^3.6.4"
     },
     "dependencies": {

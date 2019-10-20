@@ -410,7 +410,7 @@
         "signature": "d5207ba2ca42dd060868062915874cc94c28616ab0321fb7be3c2abaf45cddc1"
       },
       "./src/index.ts": {
-        "version": "95568bfd7ad2e5a367207aead97f8d93d81522a35cda83f95dfc5e868acdaa4a",
+        "version": "50762ad45512c70d593d10f90a0db6c736c2eb544cdb7a5846968abebb70b3fc",
         "signature": "dd0a47805e422b96dcf8bb6840aa1e77e3807c40c8e52ebc92712bd9c4eb0e12"
       },
       "./node_modules/pandora-kita/dist/index.d.ts": {
@@ -418,7 +418,7 @@
         "signature": "9e217cd4eb4395b143968f279777544f7581886f476625cbde9ccaddc7f14e86"
       },
       "./src/main.ts": {
-        "version": "cd493227628e5e021f9f5cb347c3d0a02faf56287066b7f142e12c536a676c4d",
+        "version": "03dce4f12c2e249be0b61c1943c136671d5a1c4dd0c201950108daf5d1de41e0",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
       },
       "./node_modules/@types/chai/index.d.ts": {
@@ -1341,8 +1341,8 @@
       ],
       "./src/main.ts": [
         "./node_modules/autonomous/dist/index.d.ts",
-        "./node_modules/pandora-kita/dist/index.d.ts",
         "./src/index.ts",
+        "./node_modules/pandora-kita/dist/index.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -2332,10 +2332,10 @@
       "./node_modules/autobind-decorator/index.d.ts",
       "./node_modules/@types/fs-extra/index.d.ts",
       "./src/mapping.ts",
+      "./src/index.ts",
       "./node_modules/pandora-kita/dist/index.d.ts",
-      "./src/main.ts",
       "./node_modules/@types/chai/index.d.ts",
-      "./src/index.ts"
+      "./src/main.ts"
     ]
   },
   "version": "3.6.4"
