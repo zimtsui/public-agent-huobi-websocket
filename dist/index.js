@@ -9,7 +9,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const autonomous_1 = __importDefault(require("autonomous"));
+const autonomous_1 = require("autonomous");
 const ws_1 = __importDefault(require("ws"));
 const lodash_1 = require("lodash");
 const events_1 = require("events");
@@ -24,7 +24,7 @@ const mapping_1 = require("./mapping");
 const jsonBigintString = json_bigint_1.default({ storeAsString: true });
 const config = fs_extra_1.readJsonSync(path_1.join(__dirname, '../cfg/config.json'));
 const ACTIVE_CLOSE = 'public-agent-huobi-websocket';
-class PublicAgentHuobiWebsocket extends autonomous_1.default {
+class PublicAgentHuobiWebsocket extends autonomous_1.Autonomous {
     constructor() {
         super(...arguments);
         this.publicCenter = {};
@@ -39,6 +39,8 @@ class PublicAgentHuobiWebsocket extends autonomous_1.default {
         this.huobiSpot.on('data', this.onSpotRawData);
     }
     async _stop() {
+        this.derivativeDebouncedStop.cancel();
+        this.spotDebouncedStop.cancel();
         if (this.huobiSpot) {
             if (this.huobiSpot.readyState < 2)
                 this.huobiSpot.close(1000, ACTIVE_CLOSE);

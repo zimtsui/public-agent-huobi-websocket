@@ -146,12 +146,20 @@
         "signature": "be15ee69a6a66618a6d9bf4ce8135b1a86adc2730a88603397e3b3d22f1ce62d"
       },
       "./node_modules/autonomous/dist/auto-exit-decorator.d.ts": {
-        "version": "79e264690ff58964afee23e9c17f74160ac7e63baf7127964cd1590a6449caf8",
-        "signature": "79e264690ff58964afee23e9c17f74160ac7e63baf7127964cd1590a6449caf8"
+        "version": "de6056e8d562d31c0a36203eb37aff96770174246b101907f8c583bd217530ab",
+        "signature": "de6056e8d562d31c0a36203eb37aff96770174246b101907f8c583bd217530ab"
+      },
+      "./node_modules/autonomous/dist/autonomous.d.ts": {
+        "version": "e163f08a9934d11debcc3629aff2b0c58234dad5481438254257fb405e6a73c4",
+        "signature": "e163f08a9934d11debcc3629aff2b0c58234dad5481438254257fb405e6a73c4"
+      },
+      "./node_modules/autonomous/dist/pandora2pm2.d.ts": {
+        "version": "fa96a646f4eefc6b42dce2160bef1d53378aba357b3bf5c72350f00629af47ff",
+        "signature": "fa96a646f4eefc6b42dce2160bef1d53378aba357b3bf5c72350f00629af47ff"
       },
       "./node_modules/autonomous/dist/index.d.ts": {
-        "version": "a80e21f89e4c892da1a5c2d4dfeef5c3110f0a11b9ee781ac84331debed4c0ad",
-        "signature": "a80e21f89e4c892da1a5c2d4dfeef5c3110f0a11b9ee781ac84331debed4c0ad"
+        "version": "f0007c6764fe8a4ac5c9af849bc85e327880719a2c65e1a0911bee4e50e392c9",
+        "signature": "f0007c6764fe8a4ac5c9af849bc85e327880719a2c65e1a0911bee4e50e392c9"
       },
       "./node_modules/@types/node/globals.d.ts": {
         "version": "f1922462b7349287fbf585a3531f3e116c2594ca57ef2ec20f25862d5f5804c9",
@@ -402,12 +410,20 @@
         "signature": "d5207ba2ca42dd060868062915874cc94c28616ab0321fb7be3c2abaf45cddc1"
       },
       "./src/index.ts": {
-        "version": "4631fc05b2d1e9bc8d5d752cdc63302654339d994c32f52383e28620027bebbe",
-        "signature": "3098bf622b19904b6c3b0fe781c33b1d28f017535ce33464a1534bcf52d67f70"
+        "version": "95568bfd7ad2e5a367207aead97f8d93d81522a35cda83f95dfc5e868acdaa4a",
+        "signature": "dd0a47805e422b96dcf8bb6840aa1e77e3807c40c8e52ebc92712bd9c4eb0e12"
       },
-      "./node_modules/@types/bluebird/index.d.ts": {
-        "version": "f41a3395fece5b112c18600fece3260cac50b945abd3fe8ccd3511ff32eef3e1",
-        "signature": "f41a3395fece5b112c18600fece3260cac50b945abd3fe8ccd3511ff32eef3e1"
+      "./node_modules/pandora-kita/dist/index.d.ts": {
+        "version": "9e217cd4eb4395b143968f279777544f7581886f476625cbde9ccaddc7f14e86",
+        "signature": "9e217cd4eb4395b143968f279777544f7581886f476625cbde9ccaddc7f14e86"
+      },
+      "./src/main.ts": {
+        "version": "cd493227628e5e021f9f5cb347c3d0a02faf56287066b7f142e12c536a676c4d",
+        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+      },
+      "./node_modules/@types/chai/index.d.ts": {
+        "version": "0a534de2e8e1b76641c091f58fda5b8955f0e3b9df67ceae097d94dfe95c5f67",
+        "signature": "0a534de2e8e1b76641c091f58fda5b8955f0e3b9df67ceae097d94dfe95c5f67"
       }
     },
     "options": {
@@ -655,8 +671,23 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "./node_modules/autonomous/dist/autonomous.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./node_modules/autonomous/dist/pandora2pm2.d.ts": [
+        "./node_modules/autonomous/dist/autonomous.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "./node_modules/autonomous/dist/index.d.ts": [
         "./node_modules/autonomous/dist/auto-exit-decorator.d.ts",
+        "./node_modules/autonomous/dist/autonomous.d.ts",
+        "./node_modules/autonomous/dist/pandora2pm2.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -1302,7 +1333,22 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
-      "./node_modules/@types/bluebird/index.d.ts": [
+      "./node_modules/pandora-kita/dist/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./src/main.ts": [
+        "./node_modules/autonomous/dist/index.d.ts",
+        "./node_modules/pandora-kita/dist/index.d.ts",
+        "./src/index.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./node_modules/@types/chai/index.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -1526,8 +1572,23 @@
         "./node_modules/@types/node/util.d.ts",
         "./node_modules/@types/node/ts3.2/util.d.ts"
       ],
+      "./node_modules/autonomous/dist/autonomous.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./node_modules/autonomous/dist/pandora2pm2.d.ts": [
+        "./node_modules/autonomous/dist/autonomous.d.ts",
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
       "./node_modules/autonomous/dist/index.d.ts": [
         "./node_modules/autonomous/dist/auto-exit-decorator.d.ts",
+        "./node_modules/autonomous/dist/autonomous.d.ts",
+        "./node_modules/autonomous/dist/pandora2pm2.d.ts",
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -2155,7 +2216,13 @@
       "./src/index.ts": [
         "./node_modules/autonomous/dist/index.d.ts"
       ],
-      "./node_modules/@types/bluebird/index.d.ts": [
+      "./node_modules/pandora-kita/dist/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/ts3.2/fs.d.ts",
+        "./node_modules/@types/node/util.d.ts",
+        "./node_modules/@types/node/ts3.2/util.d.ts"
+      ],
+      "./node_modules/@types/chai/index.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/ts3.2/fs.d.ts",
         "./node_modules/@types/node/util.d.ts",
@@ -2200,6 +2267,8 @@
       "./src/interfaces.ts",
       "./src/formatter.ts",
       "./node_modules/autonomous/dist/auto-exit-decorator.d.ts",
+      "./node_modules/autonomous/dist/autonomous.d.ts",
+      "./node_modules/autonomous/dist/pandora2pm2.d.ts",
       "./node_modules/autonomous/dist/index.d.ts",
       "./node_modules/@types/node/globals.d.ts",
       "./node_modules/@types/node/assert.d.ts",
@@ -2263,7 +2332,9 @@
       "./node_modules/autobind-decorator/index.d.ts",
       "./node_modules/@types/fs-extra/index.d.ts",
       "./src/mapping.ts",
-      "./node_modules/@types/bluebird/index.d.ts",
+      "./node_modules/pandora-kita/dist/index.d.ts",
+      "./src/main.ts",
+      "./node_modules/@types/chai/index.d.ts",
       "./src/index.ts"
     ]
   },

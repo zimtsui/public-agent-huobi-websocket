@@ -1,4 +1,4 @@
-import Autonomous from 'autonomous';
+import { Autonomous } from 'autonomous';
 declare class PublicAgentHuobiWebsocket extends Autonomous {
     private huobiDerivative;
     private huobiSpot;

@@ -1,4 +1,4 @@
-import Autonomous from 'autonomous';
+import { Autonomous } from 'autonomous';
 import WebSocket from 'ws';
 import { debounce, Cancelable } from 'lodash';
 import { once } from 'events';
@@ -49,6 +49,9 @@ class PublicAgentHuobiWebsocket extends Autonomous {
     }
 
     protected async _stop(): Promise<void> {
+        this.derivativeDebouncedStop.cancel();
+        this.spotDebouncedStop.cancel();
+
         if (this.huobiSpot) {
             if (this.huobiSpot.readyState < 2)
                 this.huobiSpot.close(1000, ACTIVE_CLOSE);
