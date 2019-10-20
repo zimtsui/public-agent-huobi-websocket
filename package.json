@@ -21,7 +21,6 @@
     },
     "homepage": "https://github.com/zimtsui/public-agent-huobi-websocket#readme",
     "devDependencies": {
-        "source-map-support": "^0.5.13",
         "typescript": "^3.6.4"
     },
     "dependencies": {
@@ -36,6 +35,7 @@
         "json-bigint": "^0.3.0",
         "lodash": "^4.17.15",
         "pandora-kita": "git+https://github.com/zimtsui/pandora-kita.git",
+        "source-map-support": "^0.5.13",
         "ws": "^7.1.2"
     }
 }
