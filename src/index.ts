@@ -20,6 +20,7 @@ import {
     RawOrderbookData,
     RawTradesData,
     Config,
+    Orderbook,
 } from './interfaces';
 const jsonBigintString = jsonBigint({ storeAsString: true });
 
@@ -245,7 +246,11 @@ class PublicAgentHuobiWebsocket extends Autonomous {
         raw: RawOrderbookData,
     ) {
         const isFutures = pair !== 'BTC/USDT';
-        const orderbook = formatRawOrderbookData(raw, isFutures);
+        const fullOrderbook = formatRawOrderbookData(raw, isFutures);
+        const orderbook: Orderbook = {
+            bids: fullOrderbook.bids.slice(0, config.ORDERBOOK_DEPTH),
+            asks: fullOrderbook.asks.slice(0, config.ORDERBOOK_DEPTH),
+        };
         const data: PDFATC = { orderbook };
         this.publicCenter[pair].send(JSON.stringify(data));
     }

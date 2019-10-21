@@ -138,8 +138,8 @@
         "signature": "59f79b339363049d7e42c13d83d890e1e7a89e7ab7c0f5635ecec724d7321f2e"
       },
       "./src/interfaces.ts": {
-        "version": "a4b43ab95191f4da8f09328df06e3b4432935dc693625658149c8d9b764f8b32",
-        "signature": "3ef70c9eea99ac025b9f0d8fae0c4718254814554129d41746cab31435a3e847"
+        "version": "932c92cceaf9e3499e394bdf5588deffb10463af56c4676810c0d701fb5345d7",
+        "signature": "51accba853856191bbb37c8d22289a152dde681d41703e263fc1666c4dd3e295"
       },
       "./src/formatter.ts": {
         "version": "8ae4a8d2ddc409f2c56bbb256d0355d8a4e863677f419a1c7e0df688a21049e0",
@@ -410,7 +410,7 @@
         "signature": "d5207ba2ca42dd060868062915874cc94c28616ab0321fb7be3c2abaf45cddc1"
       },
       "./src/index.ts": {
-        "version": "770c1a64b3c853d193ed3cb91640c616b0fe7b9032dc6b8dc582d1da48f7d2b2",
+        "version": "77b7c143921173313b1b12e5c7a7e1ab418f47d8e31bfdbb9c62c75184366121",
         "signature": "dd0a47805e422b96dcf8bb6840aa1e77e3807c40c8e52ebc92712bd9c4eb0e12"
       },
       "./node_modules/pandora-kita/dist/index.d.ts": {
@@ -2264,8 +2264,6 @@
       "./node_modules/typescript/lib/lib.esnext.intl.d.ts",
       "./node_modules/typescript/lib/lib.esnext.bigint.d.ts",
       "./node_modules/interfaces/dist/index.d.ts",
-      "./src/interfaces.ts",
-      "./src/formatter.ts",
       "./node_modules/autonomous/dist/auto-exit-decorator.d.ts",
       "./node_modules/autonomous/dist/autonomous.d.ts",
       "./node_modules/autonomous/dist/pandora2pm2.d.ts",
@@ -2331,11 +2329,13 @@
       "./node_modules/@types/lodash/ts3.1/index.d.ts",
       "./node_modules/autobind-decorator/index.d.ts",
       "./node_modules/@types/fs-extra/index.d.ts",
-      "./src/mapping.ts",
       "./node_modules/pandora-kita/dist/index.d.ts",
-      "./src/main.ts",
       "./node_modules/@types/chai/index.d.ts",
-      "./src/index.ts"
+      "./src/interfaces.ts",
+      "./src/index.ts",
+      "./src/mapping.ts",
+      "./src/formatter.ts",
+      "./src/main.ts"
     ]
   },
   "version": "3.6.4"

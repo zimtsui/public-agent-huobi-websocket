@@ -22,6 +22,7 @@ interface Config {
     PUBLIC_CENTER_BASE_URL: string;
     DERIVATIVE_PING_INTERVAL: number;
     SPOT_PING_INTERVAL: number;
+    ORDERBOOK_DEPTH: number;
 }
 
 interface MarketsDescriptor {

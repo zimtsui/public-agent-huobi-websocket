@@ -205,7 +205,11 @@ class PublicAgentHuobiWebsocket extends autonomous_1.Autonomous {
     }
     onRawOrderbookData(pair, raw) {
         const isFutures = pair !== 'BTC/USDT';
-        const orderbook = formatter_1.formatRawOrderbookData(raw, isFutures);
+        const fullOrderbook = formatter_1.formatRawOrderbookData(raw, isFutures);
+        const orderbook = {
+            bids: fullOrderbook.bids.slice(0, config.ORDERBOOK_DEPTH),
+            asks: fullOrderbook.asks.slice(0, config.ORDERBOOK_DEPTH),
+        };
         const data = { orderbook };
         this.publicCenter[pair].send(JSON.stringify(data));
     }
