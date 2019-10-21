@@ -410,7 +410,7 @@
         "signature": "d5207ba2ca42dd060868062915874cc94c28616ab0321fb7be3c2abaf45cddc1"
       },
       "./src/index.ts": {
-        "version": "50762ad45512c70d593d10f90a0db6c736c2eb544cdb7a5846968abebb70b3fc",
+        "version": "770c1a64b3c853d193ed3cb91640c616b0fe7b9032dc6b8dc582d1da48f7d2b2",
         "signature": "dd0a47805e422b96dcf8bb6840aa1e77e3807c40c8e52ebc92712bd9c4eb0e12"
       },
       "./node_modules/pandora-kita/dist/index.d.ts": {
@@ -2265,6 +2265,7 @@
       "./node_modules/typescript/lib/lib.esnext.bigint.d.ts",
       "./node_modules/interfaces/dist/index.d.ts",
       "./src/interfaces.ts",
+      "./src/formatter.ts",
       "./node_modules/autonomous/dist/auto-exit-decorator.d.ts",
       "./node_modules/autonomous/dist/autonomous.d.ts",
       "./node_modules/autonomous/dist/pandora2pm2.d.ts",
@@ -2331,11 +2332,10 @@
       "./node_modules/autobind-decorator/index.d.ts",
       "./node_modules/@types/fs-extra/index.d.ts",
       "./src/mapping.ts",
-      "./src/index.ts",
       "./node_modules/pandora-kita/dist/index.d.ts",
       "./src/main.ts",
       "./node_modules/@types/chai/index.d.ts",
-      "./src/formatter.ts"
+      "./src/index.ts"
     ]
   },
   "version": "3.6.4"

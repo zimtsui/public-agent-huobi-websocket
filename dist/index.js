@@ -64,7 +64,7 @@ class PublicAgentHuobiWebsocket extends autonomous_1.Autonomous {
         this.huobiDerivative.on('error', console.error);
         this.huobiDerivative.on('close', (code, reason) => {
             if (reason !== ACTIVE_CLOSE) {
-                console.error(new Error(`huobi derivative closed: ${code}`));
+                console.error(`huobi derivative closed: ${code}`);
                 this.stop();
             }
         });
@@ -73,7 +73,7 @@ class PublicAgentHuobiWebsocket extends autonomous_1.Autonomous {
         });
         await events_1.once(this.huobiDerivative, 'open');
         this.derivativeDebouncedStop = lodash_1.debounce(() => {
-            console.error(new Error('huobi derivative lost ping'));
+            console.error('huobi derivative lost ping');
             this.stop();
         }, config.DERIVATIVE_PING_INTERVAL * 2);
     }
@@ -82,7 +82,7 @@ class PublicAgentHuobiWebsocket extends autonomous_1.Autonomous {
         this.huobiSpot.on('error', console.error);
         this.huobiSpot.on('close', (code, reason) => {
             if (reason !== ACTIVE_CLOSE) {
-                console.error(new Error(`huobi spot closed: ${code}`));
+                console.error(`huobi spot closed: ${code}`);
                 this.stop();
             }
         });
@@ -91,7 +91,7 @@ class PublicAgentHuobiWebsocket extends autonomous_1.Autonomous {
         });
         await events_1.once(this.huobiSpot, 'open');
         this.spotDebouncedStop = lodash_1.debounce(() => {
-            console.error(new Error('huobi spot lost ping'));
+            console.error('huobi spot lost ping');
             this.stop();
         }, config.SPOT_PING_INTERVAL * 2);
     }
@@ -110,7 +110,7 @@ class PublicAgentHuobiWebsocket extends autonomous_1.Autonomous {
                     huobi.emit(`${pair} trades subscribed`);
                 }
                 else {
-                    console.error(new Error(`failed to subscribe ${pair} trades`));
+                    console.error(`failed to subscribe ${pair} trades`);
                     this.stop();
                 }
             };
@@ -134,7 +134,7 @@ class PublicAgentHuobiWebsocket extends autonomous_1.Autonomous {
                     huobi.emit(`${pair} orderbook subscribed`);
                 }
                 else {
-                    console.error(new Error(`failed to subscribe ${pair} orderbook`));
+                    console.error(`failed to subscribe ${pair} orderbook`);
                     this.stop();
                 }
             };
