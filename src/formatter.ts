@@ -44,7 +44,7 @@ function formatRawOrderbookData(
             action: Action.BID,
         })),
         asks: raw.bids.map(([price, amount]) => ({
-            price: price * 100,
+            price: Math.round(price * 100),
             amount: isFutures ? amount * 100 / price : amount,
             action: Action.ASK,
         })),
