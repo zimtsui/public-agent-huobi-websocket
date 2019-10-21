@@ -31,7 +31,7 @@ function formatRawOrderbookData(raw, isFutures = false) {
             amount: isFutures ? amount * 100 / price : amount,
             action: interfaces_1.Action.BID,
         })),
-        asks: raw.bids.map(([price, amount]) => ({
+        asks: raw.asks.map(([price, amount]) => ({
             price: Math.round(price * 100),
             amount: isFutures ? amount * 100 / price : amount,
             action: interfaces_1.Action.ASK,

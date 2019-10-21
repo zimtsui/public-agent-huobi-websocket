@@ -142,7 +142,7 @@
         "signature": "3ef70c9eea99ac025b9f0d8fae0c4718254814554129d41746cab31435a3e847"
       },
       "./src/formatter.ts": {
-        "version": "049f601ccbd415ba54070c6ebb3e463e13d0576ce66a1e672890dab09b494e90",
+        "version": "8ae4a8d2ddc409f2c56bbb256d0355d8a4e863677f419a1c7e0df688a21049e0",
         "signature": "be15ee69a6a66618a6d9bf4ce8135b1a86adc2730a88603397e3b3d22f1ce62d"
       },
       "./node_modules/autonomous/dist/auto-exit-decorator.d.ts": {
