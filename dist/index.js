@@ -33,8 +33,8 @@ class PublicAgentHuobiWebsocket extends autonomous_1.Autonomous {
         await this.connectPublicCenter();
         await this.connectHuobiDerivative();
         this.huobiDerivative.on('data', this.onDerivativeRawData);
-        await this.connectHuobiSpot();
-        this.huobiSpot.on('data', this.onSpotRawData);
+        // await this.connectHuobiSpot();
+        // this.huobiSpot.on('data', this.onSpotRawData);
         await this.subscribeTrades();
         await this.subscribeOrderbook();
     }

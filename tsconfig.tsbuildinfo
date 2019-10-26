@@ -406,11 +406,11 @@
         "signature": "062fd391f70e8816148e3ba09f2aa5b26db4529f3007d6bfad7776526dd828e6"
       },
       "./src/mapping.ts": {
-        "version": "7572552f4152a578b12f701c5a51482eb44253d9bee479f9e05bd99f0471eb10",
+        "version": "6ba494c6d8bf8e31eed2038bf320fc964fa2e17034f2c6c17429110a7963299a",
         "signature": "d5207ba2ca42dd060868062915874cc94c28616ab0321fb7be3c2abaf45cddc1"
       },
       "./src/index.ts": {
-        "version": "b7cb2eaab23cd475338be902dc09298de0437e56bd2399bb9d196a9b93312354",
+        "version": "63067534bdf56e2ff56e719005028b298eb4601cc57325e34ffc984ad80cc66f",
         "signature": "dd0a47805e422b96dcf8bb6840aa1e77e3807c40c8e52ebc92712bd9c4eb0e12"
       },
       "./node_modules/pandora-kita/dist/index.d.ts": {
@@ -443,7 +443,7 @@
       "declaration": true,
       "rootDir": "./src",
       "outDir": "./dist",
-      "noUnusedLocals": true,
+      "noUnusedLocals": false,
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
