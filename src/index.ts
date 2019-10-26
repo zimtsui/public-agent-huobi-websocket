@@ -92,6 +92,7 @@ class PublicAgentHuobiWebsocket extends Autonomous {
             console.error('huobi derivative lost ping');
             this.stop();
         }, config.DERIVATIVE_PING_INTERVAL * 2);
+        this.derivativeDebouncedStop();
     }
 
     private async connectHuobiSpot(): Promise<void> {
@@ -115,6 +116,7 @@ class PublicAgentHuobiWebsocket extends Autonomous {
             console.error('huobi spot lost ping');
             this.stop();
         }, config.SPOT_PING_INTERVAL * 2);
+        this.spotDebouncedStop();
     }
 
     private async subscribeTrades(): Promise<void> {
