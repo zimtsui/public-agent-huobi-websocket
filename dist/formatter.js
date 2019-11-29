@@ -36,6 +36,7 @@ function formatRawOrderbookData(raw, isFutures = false) {
             amount: isFutures ? amount * 100 / price : amount,
             action: interfaces_1.Action.ASK,
         })),
+        time: raw.ts,
     };
 }
 exports.formatRawOrderbookData = formatRawOrderbookData;

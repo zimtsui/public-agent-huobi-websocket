@@ -211,6 +211,7 @@ class PublicAgentHuobiWebsocket extends autonomous_1.Autonomous {
         const orderbook = {
             bids: fullOrderbook.bids.slice(0, config.ORDERBOOK_DEPTH),
             asks: fullOrderbook.asks.slice(0, config.ORDERBOOK_DEPTH),
+            time: fullOrderbook.time,
         };
         const data = { orderbook };
         this.publicCenter[pair].send(JSON.stringify(data));

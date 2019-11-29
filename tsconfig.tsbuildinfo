@@ -134,15 +134,15 @@
         "signature": "63b66918290d794f73832a6d0325be5026236674fe8c0cb0b68d162000d7bbe8"
       },
       "./node_modules/interfaces/dist/index.d.ts": {
-        "version": "59f79b339363049d7e42c13d83d890e1e7a89e7ab7c0f5635ecec724d7321f2e",
-        "signature": "59f79b339363049d7e42c13d83d890e1e7a89e7ab7c0f5635ecec724d7321f2e"
+        "version": "ed237b68f440cd10c6fcdfbdde8268eccef5820fb9d8cb19a48a0b2c06d55e48",
+        "signature": "ed237b68f440cd10c6fcdfbdde8268eccef5820fb9d8cb19a48a0b2c06d55e48"
       },
       "./src/interfaces.ts": {
-        "version": "932c92cceaf9e3499e394bdf5588deffb10463af56c4676810c0d701fb5345d7",
-        "signature": "51accba853856191bbb37c8d22289a152dde681d41703e263fc1666c4dd3e295"
+        "version": "51169d3bed767490ec2ddd5ed4c3a71298778725338442504c37cda37a25e8d4",
+        "signature": "32ce14c3c84779814139c2620af7469a476b2cb26e8d8b45a428dc510ecacbfe"
       },
       "./src/formatter.ts": {
-        "version": "8ae4a8d2ddc409f2c56bbb256d0355d8a4e863677f419a1c7e0df688a21049e0",
+        "version": "a3f9c1203c1d4b01daf689daaa732c14fae229e0aa5b8b6d930f348abe3f1ea1",
         "signature": "be15ee69a6a66618a6d9bf4ce8135b1a86adc2730a88603397e3b3d22f1ce62d"
       },
       "./node_modules/autonomous/dist/auto-exit-decorator.d.ts": {
@@ -410,7 +410,7 @@
         "signature": "d5207ba2ca42dd060868062915874cc94c28616ab0321fb7be3c2abaf45cddc1"
       },
       "./src/index.ts": {
-        "version": "63067534bdf56e2ff56e719005028b298eb4601cc57325e34ffc984ad80cc66f",
+        "version": "58131c70472c49ef9ee3d6cd81cd6ebb0ceab5e91d0c6fa0d49eeaf7e61f47f3",
         "signature": "dd0a47805e422b96dcf8bb6840aa1e77e3807c40c8e52ebc92712bd9c4eb0e12"
       },
       "./node_modules/pandora-kita/dist/index.d.ts": {
@@ -2230,8 +2230,6 @@
       ]
     },
     "semanticDiagnosticsPerFile": [
-      "./src/mapping.ts",
-      "./src/index.ts",
       "./node_modules/typescript/lib/lib.es5.d.ts",
       "./node_modules/typescript/lib/lib.es2015.d.ts",
       "./node_modules/typescript/lib/lib.es2016.d.ts",
@@ -2265,9 +2263,6 @@
       "./node_modules/typescript/lib/lib.es2019.symbol.d.ts",
       "./node_modules/typescript/lib/lib.esnext.intl.d.ts",
       "./node_modules/typescript/lib/lib.esnext.bigint.d.ts",
-      "./node_modules/interfaces/dist/index.d.ts",
-      "./src/interfaces.ts",
-      "./src/formatter.ts",
       "./node_modules/autonomous/dist/auto-exit-decorator.d.ts",
       "./node_modules/autonomous/dist/autonomous.d.ts",
       "./node_modules/autonomous/dist/pandora2pm2.d.ts",
@@ -2334,8 +2329,13 @@
       "./node_modules/autobind-decorator/index.d.ts",
       "./node_modules/@types/fs-extra/index.d.ts",
       "./node_modules/pandora-kita/dist/index.d.ts",
-      "./src/main.ts",
-      "./node_modules/@types/chai/index.d.ts"
+      "./node_modules/@types/chai/index.d.ts",
+      "./node_modules/interfaces/dist/index.d.ts",
+      "./src/interfaces.ts",
+      "./src/index.ts",
+      "./src/mapping.ts",
+      "./src/formatter.ts",
+      "./src/main.ts"
     ]
   },
   "version": "3.6.4"

@@ -16,7 +16,7 @@ import {
     MARKETS,
 } from './mapping';
 import {
-    PublicDataFromAgentToCenter as PDFATC,
+    DataFromPublicAgentToCenter as DFPATC,
     RawOrderbookData,
     RawTradesData,
     Config,
@@ -239,7 +239,7 @@ class PublicAgentHuobiWebsocket extends Autonomous {
     ) {
         const isFutures = pair !== 'BTC/USDT';
         const trades = formatRawTradesData(raw, isFutures);
-        const data: PDFATC = { trades };
+        const data: DFPATC = { trades };
         this.publicCenter[pair].send(JSON.stringify(data));
     }
 
@@ -252,8 +252,9 @@ class PublicAgentHuobiWebsocket extends Autonomous {
         const orderbook: Orderbook = {
             bids: fullOrderbook.bids.slice(0, config.ORDERBOOK_DEPTH),
             asks: fullOrderbook.asks.slice(0, config.ORDERBOOK_DEPTH),
+            time: fullOrderbook.time,
         };
-        const data: PDFATC = { orderbook };
+        const data: DFPATC = { orderbook };
         this.publicCenter[pair].send(JSON.stringify(data));
     }
 

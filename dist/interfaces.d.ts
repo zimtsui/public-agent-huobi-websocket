@@ -11,6 +11,7 @@ declare type RawTradesData = RawTrade[];
 interface RawOrderbookData {
     bids: [number, number][];
     asks: [number, number][];
+    ts: number;
 }
 interface Config {
     DERIVATIVE_URL: string;

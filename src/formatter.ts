@@ -48,6 +48,7 @@ function formatRawOrderbookData(
             amount: isFutures ? amount * 100 / price : amount,
             action: Action.ASK,
         })),
+        time: raw.ts,
     }
 }
 
