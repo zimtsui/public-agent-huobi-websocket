@@ -33,7 +33,7 @@
         "fs-extra": "^8.1.0",
         "interfaces": "git+https://github.com/zimtsui/interfaces.git",
         "json-bigint": "^0.3.0",
-        "lodash": "^4.17.15",
+        "lodash": "^4.17.19",
         "pandora-kita": "git+https://github.com/zimtsui/pandora-kita.git",
         "source-map-support": "^0.5.13",
         "ws": "^7.1.2"
